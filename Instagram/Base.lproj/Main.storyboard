@@ -83,7 +83,7 @@
         <!--Instagram-->
         <scene sceneID="X7h-u9-TQy">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="17J-Zx-aPr" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController id="17J-Zx-aPr" customClass="HomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9ZI-Cf-ubi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,7 +105,7 @@
         <!--Instagram-->
         <scene sceneID="5EW-Eg-atd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qcU-jb-Wtp" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="qcU-jb-Wtp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Instagram" prompt="Instagram" largeTitleDisplayMode="always" id="ZqA-pa-kgw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nsp-96-nES">
