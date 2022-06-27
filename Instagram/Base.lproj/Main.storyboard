@@ -11,7 +11,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,27 +80,34 @@
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="81.696428571428569"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Instagram-->
         <scene sceneID="X7h-u9-TQy">
             <objects>
-                <viewController id="17J-Zx-aPr" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="17J-Zx-aPr" customClass="HomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9ZI-Cf-ubi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="q9h-JP-9VN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="hrT-hG-7PK"/>
+                    <navigationItem key="navigationItem" title="Instagram" id="hrT-hG-7PK">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Lqb-ls-Vo8">
+                            <connections>
+                                <action selector="didTapLogout:" destination="17J-Zx-aPr" id="RTl-PP-SoC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQu-6G-ubx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1588.4057971014495" y="82.366071428571431"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Instagram-->
         <scene sceneID="5EW-Eg-atd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qcU-jb-Wtp" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Instagram" prompt="Instagram" largeTitleDisplayMode="always" id="ZqA-pa-kgw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nsp-96-nES">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
