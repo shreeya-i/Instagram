@@ -14,6 +14,7 @@
 #import "Post.h"
 #import "PostCell.h"
 #import "DetailViewController.h"
+@import Parse;
 
 @interface HomeViewController () <UITableViewDataSource>
 @property (nonatomic, strong) NSArray *arrayOfPosts;
@@ -21,6 +22,13 @@
 @end
 
 @implementation HomeViewController
+
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    [self.postTableView reloadData];
+//    [self fetchPosts];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,7 +85,12 @@
     cell.post = self.arrayOfPosts[indexPath.row];
     cell.captionLabel.text = cell.post.caption;
     cell.usernameLabel.text = cell.post.author.username;
+    
+    [cell.likeButton setTitle: [NSString stringWithFormat:@"%@", cell.post.likeCount]  forState:UIControlStateNormal];
+    [cell.commentButton setTitle: [NSString stringWithFormat:@"%@", cell.post.commentCount]  forState:UIControlStateNormal];
 
+    cell.postImage.file = cell.post[@"image"];
+    [cell.postImage loadInBackground];
     
     //cell.delegate = self;
     return cell;

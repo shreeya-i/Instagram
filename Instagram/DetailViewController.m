@@ -6,12 +6,14 @@
 //
 
 #import "DetailViewController.h"
+@import Parse;
 
 @interface DetailViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *postImage;
+@property (weak, nonatomic) IBOutlet PFImageView *postImage;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (nonatomic, strong) NSDate *date;
 
 
 @end
@@ -24,6 +26,31 @@
     
     self.usernameLabel.text = self.detailPost.author.username;
     self.captionLabel.text = self.detailPost.caption;
+    
+    self.postImage.file = self.detailPost[@"image"];
+    [self.postImage loadInBackground];
+    
+    self.date = self.detailPost.createdAt;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
+    // Convert String to Date
+    NSDate *curDate = [NSDate date];
+    NSTimeInterval diff = [curDate timeIntervalSinceDate:self.date];
+    
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+
+    NSInteger interval = diff;
+    long seconds = interval % 60;
+    long minutes = (interval / 60) % 60;
+    long hours = (interval / 3600);
+    if(hours > 1) {
+        self.dateLabel.text = [NSString stringWithFormat:@"%ldh", hours];
+        } else if(minutes > 1) {
+        self.dateLabel.text = [NSString stringWithFormat:@"%ldm", minutes];
+        } else {
+        self.dateLabel.text = [NSString stringWithFormat:@"%lds", seconds];
+        }
 }
 
 /*

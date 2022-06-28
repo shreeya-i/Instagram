@@ -12,6 +12,7 @@
 @dynamic postID;
 @dynamic userID;
 @dynamic author;
+@dynamic createdAt;
 @dynamic caption;
 @dynamic image;
 @dynamic likeCount;

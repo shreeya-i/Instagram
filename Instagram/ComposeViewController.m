@@ -8,7 +8,7 @@
 #import "ComposeViewController.h"
 #import "Post.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 
 @end
 
@@ -21,6 +21,29 @@
     UITapGestureRecognizer *postTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapPlaceholderImage:)];
     [self.postImage addGestureRecognizer:postTapGestureRecognizer];
     [self.postImage setUserInteractionEnabled:YES];
+    
+    self.captionTextView.delegate = self;
+//    self.captionTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+//    self.captionTextView.layer.borderWidth = 1.0;
+    //self.composeTextView.layer.cornerRadius = 8;
+    self.captionTextView.text = @"Write a caption...";
+    self.captionTextView.textColor = [UIColor lightGrayColor];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([textView.text isEqualToString:@"Write a caption..."]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+    }
+    [textView becomeFirstResponder];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    int characterLimit = 300;
+    NSString *newText = [self.self.captionTextView.text stringByReplacingCharactersInRange:range withString:text];
+    //self.characterCount.text = [NSString stringWithFormat:@"%lu / 280", (unsigned long)newText.length];
+    return newText.length < characterLimit;
 }
 
 - (void) didTapPlaceholderImage:(UITapGestureRecognizer *)sender{
