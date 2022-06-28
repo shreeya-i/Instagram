@@ -1,5 +1,5 @@
 //
-//  HomeViewController.h
+//  DetailViewController.h
 //  Instagram
 //
 //  Created by Shreeya Indap on 6/27/22.
@@ -9,8 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UITableView *postTableView;
+@interface DetailViewController : UIViewController
 
 @end
 

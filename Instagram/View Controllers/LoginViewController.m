@@ -29,6 +29,27 @@
         // set user properties
         newUser.username = self.usernameField.text;
         newUser.password = self.passwordField.text;
+    
+//    if([self.usernameField.text isEqual:@""]|| [self.passwordField.text isEqual:@""]) {
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Fields" message:@"Username or Password is empty!" preferredStyle:(UIAlertControllerStyleAlert)];
+//
+//        // create a cancel action
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//                    // handle cancel response here. Doing nothing will dismiss the view.
+//        }];
+//        // add the cancel action to the alertController
+//        [alert addAction:cancelAction];
+//
+//        // create an OK action
+//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                // handle response here.
+//        }];
+//        // add the OK action to the alert controller
+//        [alert addAction:okAction];
+//
+//        [self presentViewController:alert animated:YES completion:^{
+//            // optional code for what happens after the alert controller has finished presenting
+//        }];
         
         // call sign up function on the object
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
@@ -39,12 +60,33 @@
                 [self performSegueWithIdentifier:@"loginSegue" sender:nil];
             }
         }];
-}
+    }
 
 
 - (IBAction)didTapLogIn:(id)sender {
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
+    
+//    if([self.usernameField.text isEqual:@""]|| [self.passwordField.text isEqual:@""]) {
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Fields" message:@"Username or Password is empty!" preferredStyle:(UIAlertControllerStyleAlert)];
+//
+//        // create a cancel action
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//                    // handle cancel response here. Doing nothing will dismiss the view.
+//        }];
+//        // add the cancel action to the alertController
+//        [alert addAction:cancelAction];
+//
+//        // create an OK action
+//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                // handle response here.
+//        }];
+//        // add the OK action to the alert controller
+//        [alert addAction:okAction];
+//
+//        [self presentViewController:alert animated:YES completion:^{
+//            // optional code for what happens after the alert controller has finished presenting
+//        }];
 
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
@@ -54,7 +96,7 @@
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         }
     }];
-}
+    }
 
 
 

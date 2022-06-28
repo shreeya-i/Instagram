@@ -11,8 +11,11 @@
 #import "LoginViewController.h"
 #import "Parse/Parse.h"
 #import "ComposeViewController.h"
+#import "Post.h"
+#import "PostCell.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () <UITableViewDataSource>
+@property (nonatomic, strong) NSArray *arrayOfPosts;
 
 @end
 
@@ -21,6 +24,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.postTableView reloadData];
+    
+    self.postTableView.dataSource = self;
+    self.postTableView.rowHeight = 420;
+    
+    // construct PFQuery
+    PFQuery *postQuery = [Post query];
+    [postQuery orderByDescending:@"createdAt"];
+    [postQuery includeKey:@"author"];
+    postQuery.limit = 20;
+
+    // fetch data asynchronously
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
+        if (posts) {
+            self.arrayOfPosts = posts;
+            [self.postTableView reloadData];
+        }
+        else {
+            // handle error
+        }
+    }];
 }
 
 - (IBAction)didTapLogout:(id)sender {
@@ -38,7 +63,18 @@
        }];
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell" forIndexPath:indexPath];
+    cell.post = self.arrayOfPosts[indexPath.row];
+    cell.captionLabel.text = cell.post.caption;
+    cell.usernameLabel.text = cell.post.author.username;
+    //cell.delegate = self;
+    return cell;
+}
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.arrayOfPosts.count;
+}
 
 /*
 // In a storyboard-based application, you will often want to do a little preparation before navigation

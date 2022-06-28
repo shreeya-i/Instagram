@@ -74,7 +74,16 @@
 }
 
 - (IBAction)didTapPost:(id)sender {
-    
+    UIImage *resizedImage = [self resizeImage:self.postImage.image withSize:self.postImage.image.size];
+    [Post postUserImage:resizedImage withCaption:self.captionTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error){
+            NSLog(@"Error posting user image");
+        }
+        else{
+            NSLog(@"Successfully posted image");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
 }
 
 
