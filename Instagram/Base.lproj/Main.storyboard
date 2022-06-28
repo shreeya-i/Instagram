@@ -91,16 +91,57 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Instagram" id="hrT-hG-7PK">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Lqb-ls-Vo8">
+                        <barButtonItem key="leftBarButtonItem" image="rectangle.portrait.and.arrow.right" catalog="system" id="Lqb-ls-Vo8">
                             <connections>
                                 <action selector="didTapLogout:" destination="17J-Zx-aPr" id="RTl-PP-SoC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="plus.app" catalog="system" id="JAc-BR-AWf">
+                            <connections>
+                                <segue destination="ZKb-vn-3Zy" kind="presentation" id="p6a-JU-TjH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQu-6G-ubx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1588.4057971014495" y="82.366071428571431"/>
+            <point key="canvasLocation" x="1538" y="82"/>
+        </scene>
+        <!--New Post-->
+        <scene sceneID="TWD-Iq-Jyq">
+            <objects>
+                <viewController id="K2a-4h-4lv" customClass="ComposeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ego-0D-6Lt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="hZ3-pr-OzJ">
+                                <rect key="frame" x="0.0" y="98" width="414" height="386"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ph6-xz-r3b"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Post" id="5sj-HV-EyX">
+                        <barButtonItem key="leftBarButtonItem" image="xmark" catalog="system" id="65u-lJ-PZt">
+                            <connections>
+                                <action selector="didTapDismiss:" destination="K2a-4h-4lv" id="ZNo-cL-8wb"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="paperplane" catalog="system" id="6bk-IL-VAW">
+                            <connections>
+                                <action selector="didTapPost:" destination="K2a-4h-4lv" id="nDv-Uz-C0f"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="postImage" destination="hZ3-pr-OzJ" id="Xu8-84-taG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Tp-AI-oAR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3073.913043478261" y="81.696428571428569"/>
         </scene>
         <!--Instagram-->
         <scene sceneID="5EW-Eg-atd">
@@ -119,11 +160,34 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BvJ-cM-kjd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="755" y="82"/>
+            <point key="canvasLocation" x="765" y="82"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7R6-Bg-azF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZKb-vn-3Zy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2GP-BU-FzA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="K2a-4h-4lv" kind="relationship" relationship="rootViewController" id="OP3-FH-2a1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ib6-Bx-dOH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2303" y="82"/>
         </scene>
     </scenes>
     <resources>
         <image name="background" width="168" height="300"/>
+        <image name="image_placeholder" width="375" height="375"/>
+        <image name="paperplane" catalog="system" width="128" height="118"/>
+        <image name="plus.app" catalog="system" width="128" height="114"/>
+        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

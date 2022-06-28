@@ -10,6 +10,7 @@
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
 #import "Parse/Parse.h"
+#import "ComposeViewController.h"
 
 @interface HomeViewController ()
 
@@ -36,7 +37,6 @@
            }
        }];
 }
-
 
 
 
