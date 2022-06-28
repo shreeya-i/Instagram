@@ -25,7 +25,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.postTableView reloadData];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.postTableView insertSubview:refreshControl atIndex:0];
+
     
     self.postTableView.dataSource = self;
     self.postTableView.rowHeight = 420;
@@ -43,7 +46,27 @@
             [self.postTableView reloadData];
         }
         else {
-            // handle error
+            NSLog(@"Error fetching data");
+        }
+    }];
+}
+
+- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+    
+    PFQuery *postQuery = [Post query];
+    [postQuery orderByDescending:@"createdAt"];
+    [postQuery includeKey:@"author"];
+    postQuery.limit = 20;
+
+    // fetch data asynchronously
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
+        if (posts) {
+            self.arrayOfPosts = posts;
+            [self.postTableView reloadData];
+            [refreshControl endRefreshing];
+        }
+        else {
+            NSLog(@"Error fetching data");
         }
     }];
 }
@@ -68,6 +91,8 @@
     cell.post = self.arrayOfPosts[indexPath.row];
     cell.captionLabel.text = cell.post.caption;
     cell.usernameLabel.text = cell.post.author.username;
+
+    
     //cell.delegate = self;
     return cell;
 }
