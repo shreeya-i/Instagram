@@ -13,6 +13,7 @@
 #import "ComposeViewController.h"
 #import "Post.h"
 #import "PostCell.h"
+#import "DetailViewController.h"
 
 @interface HomeViewController () <UITableViewDataSource>
 @property (nonatomic, strong) NSArray *arrayOfPosts;
@@ -25,33 +26,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
-    [self.postTableView insertSubview:refreshControl atIndex:0];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchPosts) forControlEvents:UIControlEventValueChanged];
+    [self.postTableView insertSubview:self.refreshControl atIndex:0];
 
     
     self.postTableView.dataSource = self;
     self.postTableView.rowHeight = 420;
     
-    // construct PFQuery
-    PFQuery *postQuery = [Post query];
-    [postQuery orderByDescending:@"createdAt"];
-    [postQuery includeKey:@"author"];
-    postQuery.limit = 20;
-
-    // fetch data asynchronously
-    [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
-        if (posts) {
-            self.arrayOfPosts = posts;
-            [self.postTableView reloadData];
-        }
-        else {
-            NSLog(@"Error fetching data");
-        }
-    }];
+    [self fetchPosts];
 }
 
-- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+- (void)fetchPosts {
     
     PFQuery *postQuery = [Post query];
     [postQuery orderByDescending:@"createdAt"];
@@ -63,10 +49,10 @@
         if (posts) {
             self.arrayOfPosts = posts;
             [self.postTableView reloadData];
-            [refreshControl endRefreshing];
+            [self.refreshControl endRefreshing];
         }
         else {
-            NSLog(@"Error fetching data");
+            NSLog(@"%@", error);
         }
     }];
 }
@@ -101,12 +87,17 @@
     return self.arrayOfPosts.count;
 }
 
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"detailSegue"]){
+//        UINavigationController *navigationController = [segue destinationViewController];
+//
+        NSIndexPath *myIndexPath = [self.postTableView indexPathForCell:sender];
+        Post *dataToPass = self.arrayOfPosts[myIndexPath.row];
+        DetailViewController *detailVC = [segue destinationViewController];
+        detailVC.detailPost = dataToPass;
+    }
 }
-*/
 
 @end

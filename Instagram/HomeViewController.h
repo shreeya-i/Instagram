@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomeViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *postTableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
