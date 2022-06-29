@@ -23,6 +23,21 @@
     self.usernameLabel.text = [PFUser currentUser].username;
     self.postsCollectionView.dataSource = self;
     
+    PFUser *user = [PFUser currentUser];
+    if(user[@"profileImage"]){
+            PFFileObject *file = user[@"profileImage"];
+            [file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+                        if (!error) {
+                            UIImage *image = [UIImage imageWithData:imageData];
+                            [self.profilePicture setImage:image];
+                        }
+                    }];
+    } else {
+        //[self.profilePicture setImage: @"defaultpfp"];
+    }
+
+    
+    
 //    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
 //    [self.profilePicture addGestureRecognizer:profileTapGestureRecognizer];
 //    [self.profilePicture setUserInteractionEnabled:YES];
@@ -30,7 +45,7 @@
     self.profilePicture.layer.cornerRadius  = self.profilePicture.frame.size.width/2;
     self.profilePicture.clipsToBounds = YES;
     
-    //[self fetchPosts];
+    [self fetchPosts];
 }
 
 - (void) fetchPosts {
@@ -50,13 +65,13 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20;
+    return self.postsArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UserPostCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UserPostCell" forIndexPath:indexPath];
-//    cell.postImage.file = self.postsArray[indexPath.row][@"image"];
-//    [cell.postImage loadInBackground];
+    cell.postImage.file = self.postsArray[indexPath.row][@"image"];
+    [cell.postImage loadInBackground];
     return cell;
 }
 

@@ -16,8 +16,8 @@
 #import "DetailViewController.h"
 @import Parse;
 
-@interface HomeViewController () <UITableViewDataSource>
-@property (nonatomic, strong) NSArray *arrayOfPosts;
+@interface HomeViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) NSMutableArray *arrayOfPosts;
 
 @end
 
@@ -40,7 +40,9 @@
 
     
     self.postTableView.dataSource = self;
-    self.postTableView.rowHeight = 420;
+    self.postTableView.delegate = self;
+    self.postTableView.rowHeight = UITableViewAutomaticDimension;
+   // self.postTableView.rowHeight = 420;
     
     [self fetchPosts];
 }
@@ -55,7 +57,7 @@
     // fetch data asynchronously
     [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
         if (posts) {
-            self.arrayOfPosts = posts;
+            self.arrayOfPosts = [NSMutableArray arrayWithArray:posts];
             [self.postTableView reloadData];
             [self.refreshControl endRefreshing];
         }
@@ -85,9 +87,11 @@
     cell.post = self.arrayOfPosts[indexPath.row];
     cell.captionLabel.text = cell.post.caption;
     cell.usernameLabel.text = cell.post.author.username;
+    cell.likedByLabel.text = [NSString stringWithFormat:@"Liked by %@ people", cell.post.likeCount];
+    cell.viewCommentsLabel.text = [NSString stringWithFormat:@"View all %@ comments", cell.post.commentCount];
     
-    [cell.likeButton setTitle: [NSString stringWithFormat:@"%@", cell.post.likeCount]  forState:UIControlStateNormal];
-    [cell.commentButton setTitle: [NSString stringWithFormat:@"%@", cell.post.commentCount]  forState:UIControlStateNormal];
+    //[cell.likeButton setTitle: [NSString stringWithFormat:@"%@", cell.post.likeCount]  forState:UIControlStateNormal];
+    //[cell.commentButton setTitle: [NSString stringWithFormat:@"%@", cell.post.commentCount]  forState:UIControlStateNormal];
 
     cell.postImage.file = cell.post[@"image"];
     [cell.postImage loadInBackground];
@@ -100,6 +104,33 @@
     return self.arrayOfPosts.count;
 }
 
+- (void) loadMoreData:(NSInteger)count{
+    NSNumber *newcount = @(count);
+    PFQuery *postQuery = [Post query];
+    [postQuery orderByDescending:@"createdAt"];
+    [postQuery includeKey:@"author"];
+    postQuery.limit = newcount;
+
+    // fetch data asynchronously
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray<Post *> * _Nullable posts, NSError * _Nullable error) {
+        if (posts) {
+            self.arrayOfPosts =(NSMutableArray *) posts;
+            [self.postTableView reloadData];
+            [self.refreshControl endRefreshing];
+        }
+        else {
+            NSLog(@"%@", error);
+        }
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell
+ *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row + 1 == [self.arrayOfPosts count]){
+        [self loadMoreData:[self.arrayOfPosts count] + 20];
+        //NSLog(@"%lu", [self.arrayOfTweets count] + 20);
+}
+}
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

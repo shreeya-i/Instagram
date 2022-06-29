@@ -6,6 +6,7 @@
 //
 
 #import "EditViewController.h"
+#import "Post.h"
 
 @interface EditViewController ()
 
@@ -50,10 +51,14 @@
 
     // Do something with the images (based on your use case)
     if (editedImage){
-        self.profilePicture.image = editedImage;
+        [self.profilePicture setImage: editedImage];
+        PFFileObject *file = [Post getPFFileFromImage: editedImage];
+        [self.profilePicture setFile: file];
     }
     else{
         self.profilePicture.image = originalImage;
+        PFFileObject *file = [Post getPFFileFromImage: originalImage];
+        [self.profilePicture setFile: file];
     }
     
     
@@ -66,7 +71,18 @@
 }
 
 - (IBAction)didTapSave:(id)sender {
-
+    PFUser *user = [PFUser currentUser];
+    user[@"profilePicture"] = self.profilePicture.file;
+    //    PFFileObject fileObjectWithData: [image
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error){
+                  NSLog(@"Error saving: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully saved");
+             }
+        }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

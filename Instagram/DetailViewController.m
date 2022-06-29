@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *likedByLabel;
 @property (nonatomic, strong) NSDate *date;
 
 
@@ -45,11 +46,11 @@
     long minutes = (interval / 60) % 60;
     long hours = (interval / 3600);
     if(hours > 1) {
-        self.dateLabel.text = [NSString stringWithFormat:@"%ldh", hours];
+        self.dateLabel.text = [NSString stringWithFormat:@"%ld hours ago", hours];
         } else if(minutes > 1) {
-        self.dateLabel.text = [NSString stringWithFormat:@"%ldm", minutes];
+        self.dateLabel.text = [NSString stringWithFormat:@"%ld minutes", minutes];
         } else {
-        self.dateLabel.text = [NSString stringWithFormat:@"%lds", seconds];
+        self.dateLabel.text = [NSString stringWithFormat:@"%ld seconds ago", seconds];
         }
 }
 
