@@ -17,35 +17,51 @@
 
 @implementation ProfileViewController
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.postsCollectionView reloadData];
+    [self fetchPosts];
+    [self fetchPfp];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.usernameLabel.text = [PFUser currentUser].username;
     self.postsCollectionView.dataSource = self;
     
+//    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
+//    [self.profilePicture addGestureRecognizer:profileTapGestureRecognizer];
+//    [self.profilePicture setUserInteractionEnabled:YES];
+    
+    [self fetchPosts];
+    [self fetchPfp];
+}
+
+- (void) fetchPfp {
+    
+    self.profilePicture.layer.cornerRadius  = self.profilePicture.frame.size.width/2;
+    self.profilePicture.clipsToBounds = YES;
+    self.profilePicture.layer.borderWidth = 0.5f;
+    self.profilePicture.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
     PFUser *user = [PFUser currentUser];
-    if(user[@"profileImage"]){
-            PFFileObject *file = user[@"profileImage"];
+    if(user[@"profilePicture"]){
+            PFFileObject *file = user[@"profilePicture"];
             [file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
                         if (!error) {
                             UIImage *image = [UIImage imageWithData:imageData];
                             [self.profilePicture setImage:image];
                         }
                     }];
-    } else {
-        //[self.profilePicture setImage: @"defaultpfp"];
+    }
+    else {
+        self.profilePicture.image = [UIImage imageNamed: @"defaultpfp"];
     }
 
     
     
-//    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
-//    [self.profilePicture addGestureRecognizer:profileTapGestureRecognizer];
-//    [self.profilePicture setUserInteractionEnabled:YES];
-    
-    self.profilePicture.layer.cornerRadius  = self.profilePicture.frame.size.width/2;
-    self.profilePicture.clipsToBounds = YES;
-    
-    [self fetchPosts];
 }
 
 - (void) fetchPosts {

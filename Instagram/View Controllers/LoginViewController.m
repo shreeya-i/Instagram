@@ -33,13 +33,6 @@
     if([self.usernameField.text isEqual:@""]|| [self.passwordField.text isEqual:@""]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Fields" message:@"Username or Password is empty!" preferredStyle:(UIAlertControllerStyleAlert)];
 
-        // create a cancel action
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    // handle cancel response here. Doing nothing will dismiss the view.
-        }];
-        // add the cancel action to the alertController
-        [alert addAction:cancelAction];
-
         // create an OK action
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 // handle response here.
@@ -71,13 +64,6 @@
     if([self.usernameField.text isEqual:@""] || [self.passwordField.text isEqual:@""]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Fields" message:@"Username or Password is empty!" preferredStyle:(UIAlertControllerStyleAlert)];
 
-        // create a cancel action
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    // handle cancel response here. Doing nothing will dismiss the view.
-        }];
-        // add the cancel action to the alertController
-        [alert addAction:cancelAction];
-
         // create an OK action
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 // handle response here.
@@ -106,14 +92,7 @@
     }
 
 - (void) authError {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Please format your fields properly" preferredStyle:(UIAlertControllerStyleAlert)];
-
-        // create a cancel action
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    // handle cancel response here. Doing nothing will dismiss the view.
-        }];
-        // add the cancel action to the alertController
-        [alert addAction:cancelAction];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Please enter a valid acccount." preferredStyle:(UIAlertControllerStyleAlert)];
 
         // create an OK action
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

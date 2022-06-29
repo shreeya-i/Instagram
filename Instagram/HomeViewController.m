@@ -90,9 +90,28 @@
     cell.likedByLabel.text = [NSString stringWithFormat:@"Liked by %@ people", cell.post.likeCount];
     cell.viewCommentsLabel.text = [NSString stringWithFormat:@"View all %@ comments", cell.post.commentCount];
     
-    //[cell.likeButton setTitle: [NSString stringWithFormat:@"%@", cell.post.likeCount]  forState:UIControlStateNormal];
-    //[cell.commentButton setTitle: [NSString stringWithFormat:@"%@", cell.post.commentCount]  forState:UIControlStateNormal];
-
+    cell.profilePicture.layer.cornerRadius  = cell.profilePicture.frame.size.width/2;
+    cell.profilePicture.clipsToBounds = YES;
+    cell.profilePicture.layer.borderWidth = 0.5f;
+    cell.profilePicture.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+//    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+//    [query whereKey:@"username" equalTo: cell.post.author];
+    
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *userData, NSError *error) {
+//        if (userData[@"profilePicture"]) {
+//            PFFileObject *file = user[@"profilePicture"];
+//            [file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+//                        if (!error) {
+//                            UIImage *image = [UIImage imageWithData:imageData];
+//                            [self.profilePicture setImage:image];
+//                        }
+//                    }];
+//    }
+//    else {
+        cell.profilePicture.image = [UIImage imageNamed: @"defaultpfp"];
+//    }
+    
     cell.postImage.file = cell.post[@"image"];
     [cell.postImage loadInBackground];
     

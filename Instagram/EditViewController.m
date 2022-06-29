@@ -23,6 +23,20 @@
     
     self.profilePicture.layer.cornerRadius  = self.profilePicture.frame.size.width/2;
     self.profilePicture.clipsToBounds = YES;
+    
+    PFUser *user = [PFUser currentUser];
+    if(user[@"profilePicture"]){
+            PFFileObject *file = user[@"profilePicture"];
+            [file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+                        if (!error) {
+                            UIImage *image = [UIImage imageWithData:imageData];
+                            [self.profilePicture setImage:image];
+                        }
+                    }];
+    }
+    else {
+        self.profilePicture.image = [UIImage imageNamed: @"defaultpfp"];
+    }
 
 }
 
