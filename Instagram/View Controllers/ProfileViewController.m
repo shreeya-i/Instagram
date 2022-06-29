@@ -22,7 +22,7 @@
     [super viewDidAppear:animated];
     [self.postsCollectionView reloadData];
     [self fetchPosts];
-    [self fetchPfp];
+    [self fetchDetails];
 }
 
 - (void)viewDidLoad {
@@ -31,15 +31,20 @@
     self.usernameLabel.text = [PFUser currentUser].username;
     self.postsCollectionView.dataSource = self;
     
-//    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
-//    [self.profilePicture addGestureRecognizer:profileTapGestureRecognizer];
-//    [self.profilePicture setUserInteractionEnabled:YES];
-    
     [self fetchPosts];
-    [self fetchPfp];
+    [self fetchDetails];
 }
 
-- (void) fetchPfp {
+//- (void)didSaveEdits:(NSString *)bio :(PFFileObject *)profileImage {
+//    self.bioLabel.text = bio;
+//    self.profilePicture.file = profileImage;
+//    [self.profilePicture loadInBackground];
+//    [self.postsCollectionView reloadData];
+//    [self fetchPosts];
+//    [self fetchDetails];
+//}
+
+- (void) fetchDetails {
     
     self.profilePicture.layer.cornerRadius  = self.profilePicture.frame.size.width/2;
     self.profilePicture.clipsToBounds = YES;
@@ -59,9 +64,13 @@
     else {
         self.profilePicture.image = [UIImage imageNamed: @"defaultpfp"];
     }
-
     
-    
+    if(user[@"bio"]){
+        self.bioLabel.text = user[@"bio"];
+    }
+    else{
+        self.bioLabel.text = @"";
+    }
 }
 
 - (void) fetchPosts {

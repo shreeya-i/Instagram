@@ -181,7 +181,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vDv-Ap-2JP">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PF" translatesAutoresizingMaskIntoConstraints="NO" id="vDv-Ap-2JP" customClass="PFImageView">
                                                     <rect key="frame" x="15" y="11.5" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="FzS-0z-3Zf"/>
@@ -222,7 +222,7 @@
                                             <outlet property="likeButton" destination="Guz-oH-RUw" id="lD1-wX-2JD"/>
                                             <outlet property="likedByLabel" destination="Hfk-rg-XSz" id="oz7-QX-0Ll"/>
                                             <outlet property="postImage" destination="PkN-HW-fLo" id="A1D-Kx-oXh"/>
-                                            <outlet property="profilePicture" destination="vDv-Ap-2JP" id="z9g-cq-roO"/>
+                                            <outlet property="profilePicture" destination="vDv-Ap-2JP" id="ozD-VC-k7X"/>
                                             <outlet property="usernameLabel" destination="CeS-bb-srJ" id="SiH-Ge-YfN"/>
                                             <outlet property="viewCommentsLabel" destination="uaJ-cV-4cR" id="k65-cd-Tkr"/>
                                             <segue destination="Ft2-x0-5NW" kind="show" identifier="detailSegue" id="qan-js-GCS"/>
@@ -273,7 +273,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9h-bD-JeB">
-                                <rect key="frame" x="20" y="155" width="435" height="24"/>
+                                <rect key="frame" x="70" y="157" width="435" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -300,6 +300,10 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E3v-K7-Evd">
+                                <rect key="frame" x="14" y="149" width="41" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Meo-cJ-b4S"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -567,6 +571,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="PF" width="128" height="128"/>
         <image name="arrowshape.turn.up.forward" catalog="system" width="128" height="106"/>
         <image name="background" width="168" height="300"/>
         <image name="defaultpfp" width="360" height="360"/>

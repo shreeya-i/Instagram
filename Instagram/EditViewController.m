@@ -87,12 +87,13 @@
 - (IBAction)didTapSave:(id)sender {
     PFUser *user = [PFUser currentUser];
     user[@"profilePicture"] = self.profilePicture.file;
-    //    PFFileObject fileObjectWithData: [image
+    user[@"bio"] = self.bioTextField.text;
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(error){
                   NSLog(@"Error saving: %@", error.localizedDescription);
              }
              else{
+                 [self.delegate didSaveEdits:self.bioTextField.text:self.profilePicture.file];
                  NSLog(@"Successfully saved");
              }
         }];

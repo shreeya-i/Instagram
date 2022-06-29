@@ -96,12 +96,19 @@
     cell.profilePicture.layer.borderWidth = 0.5f;
     cell.profilePicture.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.profilePicture.file = cell.post.author[@"profilePicture"];
+    [cell.profilePicture loadInBackground];
+    
+//    PFUser *user = [PFUser currentUser];
+//    user[]
+//
 //    PFQuery *query = [PFQuery queryWithClassName:@"User"];
 //    [query whereKey:@"username" equalTo: cell.post.author];
-    
+//
 //    [query findObjectsInBackgroundWithBlock:^(NSArray *userData, NSError *error) {
 //        if (userData[@"profilePicture"]) {
-//            PFFileObject *file = user[@"profilePicture"];
+//            PFFileObject *file = userData[@"profilePicture"];
 //            [file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
 //                        if (!error) {
 //                            UIImage *image = [UIImage imageWithData:imageData];
@@ -110,7 +117,7 @@
 //                    }];
 //    }
 //    else {
-        cell.profilePicture.image = [UIImage imageNamed: @"defaultpfp"];
+//        cell.profilePicture.image = [UIImage imageNamed: @"defaultpfp"];
 //    }
     
     cell.postImage.file = cell.post[@"image"];
