@@ -7,6 +7,7 @@
 
 #import "ComposeViewController.h"
 #import "Post.h"
+#import "SVProgressHUD/SVProgressHUD.h"
 
 @interface ComposeViewController () <UITextViewDelegate>
 
@@ -97,6 +98,9 @@
 }
 
 - (IBAction)didTapPost:(id)sender {
+    
+    [SVProgressHUD show];
+    
     UIImage *resizedImage = [self resizeImage:self.postImage.image withSize:self.postImage.image.size];
     [Post postUserImage:resizedImage withCaption:self.captionTextView.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error){
@@ -105,6 +109,7 @@
         else{
             NSLog(@"Successfully posted image");
             [self dismissViewControllerAnimated:YES completion:nil];
+            [SVProgressHUD dismiss];
         }
     }];
 }

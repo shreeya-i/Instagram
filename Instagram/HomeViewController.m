@@ -14,6 +14,7 @@
 #import "Post.h"
 #import "PostCell.h"
 #import "DetailViewController.h"
+#import "SVProgressHUD/SVProgressHUD.h"
 @import Parse;
 
 @interface HomeViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -26,8 +27,8 @@
 //- (void)viewDidAppear:(BOOL)animated
 //{
 //    [super viewDidAppear:animated];
-//    [self.postTableView reloadData];
-//    [self fetchPosts];
+////    [self.postTableView reloadData];
+////    [self fetchPosts];
 //}
 
 - (void)viewDidLoad {
