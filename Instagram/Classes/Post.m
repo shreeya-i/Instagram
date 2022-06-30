@@ -15,7 +15,7 @@
 @dynamic createdAt;
 @dynamic caption;
 @dynamic image;
-//@dynamic liked;
+@dynamic liked;
 @dynamic likeCount;
 @dynamic commentCount;
 
@@ -33,7 +33,7 @@ newPost.author = [PFUser currentUser];
 newPost.caption = caption;
 newPost.likeCount = @(0);
 newPost.commentCount = @(0);
-//newPost.liked = false;
+newPost.liked = false;
 
 [newPost saveInBackgroundWithBlock: completion];
 }

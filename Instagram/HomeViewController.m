@@ -100,6 +100,14 @@
     cell.profilePicture.file = cell.post.author[@"profilePicture"];
     [cell.profilePicture loadInBackground];
     
+    UIImage *favorImage = [UIImage imageNamed:@"favor-icon"];
+    UIImage *favorImageSelected = [UIImage imageNamed:@"favor-icon-red"];
+    if (cell.post.liked) {
+        [cell.likeButton setImage:favorImageSelected forState:UIControlStateNormal];
+    } else {
+        [cell.likeButton setImage:favorImage forState:UIControlStateNormal];
+    }
+    
 //    PFUser *user = [PFUser currentUser];
 //    user[]
 //
