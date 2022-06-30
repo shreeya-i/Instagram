@@ -89,13 +89,16 @@
     if(self.profilePicture.file){
         user[@"profilePicture"] = self.profilePicture.file;
     }
+    if(self.usernameTextField.text){
+        user[@"username"] = self.usernameTextField.text;
+    }
     user[@"bio"] = self.bioTextField.text;
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error){
             NSLog(@"Error saving: %@", error.localizedDescription);
         }
         else{
-            [self.delegate didSaveEdits:self.bioTextField.text:self.profilePicture.file];
+            [self.delegate didSaveEdits:self.bioTextField.text:self.profilePicture.file:self.usernameTextField.text];
             NSLog(@"Successfully saved");
             [self dismissViewControllerAnimated:YES completion:nil];
         }

@@ -35,8 +35,9 @@
     [self fetchDetails];
 }
 
-- (void)didSaveEdits:(NSString *)bio :(PFFileObject *)profileImage {
+- (void)didSaveEdits:(NSString *)bio :(PFFileObject *)profileImage :(NSString *)username{
     self.bioLabel.text = bio;
+    self.usernameLabel.text = username;
     self.profilePicture.file = profileImage;
     [self.profilePicture loadInBackground];
     [self.postsCollectionView reloadData];

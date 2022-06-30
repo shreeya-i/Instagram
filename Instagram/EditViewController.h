@@ -12,13 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol EditDelegate
 
-- (void)didSaveEdits:(NSString *)bio :(PFFileObject *)profileImage;
+- (void)didSaveEdits:(NSString *)bio :(PFFileObject *)profileImage :(NSString *)username;
 
 @end
 
 @interface EditViewController : UIViewController
 @property (weak, nonatomic) IBOutlet PFImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UITextField *bioTextField;
+@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (nonatomic, weak) id<EditDelegate> delegate;
 
 @end
