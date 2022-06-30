@@ -91,12 +91,12 @@
     cell.likedByLabel.text = [NSString stringWithFormat:@"Liked by %@ people", cell.post.likeCount];
     cell.viewCommentsLabel.text = [NSString stringWithFormat:@"View all %@ comments", cell.post.commentCount];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     cell.profilePicture.layer.cornerRadius  = cell.profilePicture.frame.size.width/2;
     cell.profilePicture.clipsToBounds = YES;
     cell.profilePicture.layer.borderWidth = 0.5f;
     cell.profilePicture.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.profilePicture.file = cell.post.author[@"profilePicture"];
     [cell.profilePicture loadInBackground];
     

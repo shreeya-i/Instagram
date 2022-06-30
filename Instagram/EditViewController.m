@@ -26,13 +26,13 @@
     
     PFUser *user = [PFUser currentUser];
     if(user[@"profilePicture"]){
-            PFFileObject *file = user[@"profilePicture"];
-            [file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
-                        if (!error) {
-                            UIImage *image = [UIImage imageWithData:imageData];
-                            [self.profilePicture setImage:image];
-                        }
-                    }];
+        PFFileObject *file = user[@"profilePicture"];
+        [file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:imageData];
+                [self.profilePicture setImage:image];
+            }
+        }];
     }
     else {
         self.profilePicture.image = [UIImage imageNamed: @"defaultpfp"];
@@ -86,18 +86,21 @@
 
 - (IBAction)didTapSave:(id)sender {
     PFUser *user = [PFUser currentUser];
-    user[@"profilePicture"] = self.profilePicture.file;
+    if(self.profilePicture.file){
+        user[@"profilePicture"] = self.profilePicture.file;
+    }
     user[@"bio"] = self.bioTextField.text;
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if(error){
-                  NSLog(@"Error saving: %@", error.localizedDescription);
-             }
-             else{
-                 [self.delegate didSaveEdits:self.bioTextField.text:self.profilePicture.file];
-                 NSLog(@"Successfully saved");
-             }
-        }];
-    [self dismissViewControllerAnimated:YES completion:nil];
+        if(error){
+            NSLog(@"Error saving: %@", error.localizedDescription);
+        }
+        else{
+            [self.delegate didSaveEdits:self.bioTextField.text:self.profilePicture.file];
+            NSLog(@"Successfully saved");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+    
 }
 
 /*

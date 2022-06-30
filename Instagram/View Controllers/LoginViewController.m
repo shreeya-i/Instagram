@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.passwordField.secureTextEntry = true;
 }
 
 - (IBAction)didTapSignUp:(id)sender {
@@ -79,10 +81,10 @@
         [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
             if (error != nil) {
                 NSLog(@"User log in failed: %@", error.localizedDescription);
-                [self authError];
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 HomeViewController *homeVC = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
                 self.view.window.rootViewController = homeVC;
+                [self authError];
             } else {
                 NSLog(@"User logged in successfully");
                 [self performSegueWithIdentifier:@"loginSegue" sender:nil];

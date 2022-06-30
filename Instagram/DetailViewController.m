@@ -10,6 +10,7 @@
 
 @interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet PFImageView *postImage;
+@property (weak, nonatomic) IBOutlet PFImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -30,6 +31,13 @@
     
     self.postImage.file = self.detailPost[@"image"];
     [self.postImage loadInBackground];
+    
+    self.profilePicture.layer.cornerRadius  = self.profilePicture.frame.size.width/2;
+    self.profilePicture.clipsToBounds = YES;
+    self.profilePicture.file = self.detailPost.author[@"profilePicture"];
+    [self.profilePicture loadInBackground];
+    
+    self.likedByLabel.text = [NSString stringWithFormat:@"Liked by %@ people", self.detailPost.likeCount];
     
     self.date = self.detailPost.createdAt;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
